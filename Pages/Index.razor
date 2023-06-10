@@ -3,7 +3,8 @@
 <PageTitle>Index</PageTitle>
 <EHView BaseAddress="https://localhost:1234" Header="Blog">
     <EHBody>
-        <EHGet Endpoint="/api/blog/{url:string}" RequestName="GetBlogWithUrl" IsSuccess="typeof(TestResponse)"></EHGet>
+        <EHGet Endpoint="/api/blog/{url:string}" RequestName="GetBlogWithUrl" IsSuccess="typeof(TestResponse)" />
+        <EHGet Endpoint="/api/blog/{url:string}" RequestName="GetBlogWithUrl" IsSuccess="typeof(List<TestResponse>)" />
     </EHBody>
 </EHView>
 

@@ -14,9 +14,6 @@
     <div class="collapse ps-3 " id="@CollapseName">
         @foreach (var item in PropertyModel.Properties)
         {
-            @* <div>@(item.PropertyType == PropertyModel.Type)</div>
-    <div>@item.PropertyType</div>
-    <div class="border-bottom">@PropertyModel.Type</div> *@
             <EHPropertyView Property="@item" IsSameObject="item.PropertyType == PropertyModel.Type" />
         }
     </div>
@@ -27,7 +24,7 @@
     [Parameter] public bool IsSameObject { get; set; }
     private EHResponse PropertyModel { get; set; }
     private string CollapseName { get; set; }
-    private bool IsCollapsable => PropertyModel.IsModel && !IsSameObject;
+    private bool IsCollapsable => PropertyModel.IsModel && !IsSameObject && !PropertyModel.IsException;
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {

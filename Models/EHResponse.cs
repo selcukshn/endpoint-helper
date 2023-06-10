@@ -23,7 +23,7 @@ namespace EndpointHelper.Models
                     {
                         if (IsNullable)
                             return $"{Type.Name}?";
-                        return $"{Type.Name}[]";
+                        return $"Collection<{Type.Name}>";
                     }
                     return Type.Name;
                 }
@@ -38,6 +38,7 @@ namespace EndpointHelper.Models
                 IsGeneric = typeOfObject.IsGenericType;
                 Type = IsGeneric ? typeOfObject.GetGenericArguments().First() : typeOfObject;
                 IsNullable = IsNullableType(typeOfObject);
+                IsException = IsExceptionType(typeOfObject);
                 IsString = IsStringType(typeOfObject);
                 IsClass = typeOfObject.IsClass && !IsString;
                 IsModel = IsClass && !IsNullable;
@@ -50,6 +51,10 @@ namespace EndpointHelper.Models
         private bool IsNullableType(Type typeOfObject)
         {
             return typeOfObject.FullName.ToLower().Contains("nullable");
+        }
+        private bool IsExceptionType(Type typeOfObject)
+        {
+            return typeOfObject == typeof(System.Exception) || typeOfObject.BaseType == typeof(System.Exception);
         }
     }
 }

@@ -12,8 +12,8 @@ namespace EndpointHelper.Models
         public List<string> ListStr { get; set; }
         public TestResponse TestResponses { get; set; }
         public List<TestResponse> TestResponsesList { get; set; }
-        // public Exception Exc { get; set; }
-        public CustomException Exc { get; set; }
+        public Exception Exc { get; set; }
+        public CustomException CustomExc { get; set; }
         // public Exception Exc { get; set; }
     }
 }
