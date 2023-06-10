@@ -1,0 +1,43 @@
+@using System.Reflection
+<div class="response-model-property">
+    <span class="response-model-property-name">@PropertyModel.Name</span>
+    <span>@Property.Name</span>
+    @if (IsCollapsable)
+    {
+        <span class="response-model-property-model-collapse" data-bs-toggle="collapse" data-bs-target="#@CollapseName">
+            <i class="bi bi-caret-down-fill"></i>
+        </span>
+    }
+</div>
+@if (IsCollapsable)
+{
+    <div class="collapse ps-3 " id="@CollapseName">
+        @foreach (var item in PropertyModel.Properties)
+        {
+            @* <div>@(item.PropertyType == PropertyModel.Type)</div>
+    <div>@item.PropertyType</div>
+    <div class="border-bottom">@PropertyModel.Type</div> *@
+            <EHPropertyView Property="@item" IsSameObject="item.PropertyType == PropertyModel.Type" />
+        }
+    </div>
+}
+
+@code {
+    [Parameter] public PropertyInfo Property { get; set; }
+    [Parameter] public bool IsSameObject { get; set; }
+    private EHResponse PropertyModel { get; set; }
+    private string CollapseName { get; set; }
+    private bool IsCollapsable => PropertyModel.IsModel && !IsSameObject;
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        CollapseName = Guid.NewGuid().ToString();
+        if (parameters.TryGetValue(nameof(Property), out PropertyInfo property))
+        {
+            if (property != null)
+                PropertyModel = new EHResponse(property.PropertyType);
+        }
+        await base.SetParametersAsync(parameters);
+    }
+}
+

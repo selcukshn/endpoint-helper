@@ -1,0 +1,62 @@
+i {
+    pointer-events: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+}
+
+.request-name {}
+
+.request-method {
+    padding: 0.3rem 0.4rem;
+    border-radius: 4px;
+    color: white;
+    display: flex;
+}
+
+.request-post {
+    background-color: #2196F3;
+}
+
+.request-get {
+    background-color: #4CAF50;
+}
+
+.request-delete {
+    background-color: #F44336;
+}
+
+.request-put {
+    background-color: #FF9800;
+}
+
+.request-endpoint {
+    font-size: 1rem;
+    color: #212121;
+}
+
+.response-header {
+    font-weight: 700;
+}
+
+.response-parameter {
+    border: 1px solid #c4c4c4;
+    background-color: #fafafa;
+    padding: 0.2rem 0.4rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.response-parameter-type {
+    font-weight: 500;
+}

@@ -1,0 +1,90 @@
+@inherits EHRequest
+
+<div class="d-flex flex-column gap-2 p-2 border rounded mb-3">
+    <div class="d-flex align-items-center gap-2">
+        <h6 class="request-method @methodBG">@Method</h6>
+        <h5 class="request-name">@RequestName</h5>
+        <div class="vr"></div>
+        <p class="request-endpoint">@($"{BaseAddress}{Endpoint}")</p>
+        <span class="d-inline-block ms-auto" style="cursor: pointer;" data-bs-toggle="collapse"
+            data-bs-target="#request-detail-@collapseId">
+            <i class="bi bi-caret-down-fill"></i>
+        </span>
+    </div>
+    <div id="request-detail-@collapseId" class="collapse ">
+        @if (Parameters is not null)
+        {
+            <div class="row border-top g-0 py-2">
+                <div class="col-1 border-end">
+                    <h5 class="mb-2">Parameters</h5>
+                </div>
+                <div class="col-11  ps-2">
+                    <div class="d-flex gap-2">
+                        @foreach (var param in Parameters)
+                        {
+                            <div class="response-parameter">
+                                <span class="response-parameter-type">@param.ParameterType.Name</span>
+                                <span class="vr"></span>
+                                <span class="response-parameter-name">@param.ParameterName</span>
+                                @if (param.Required)
+                                {
+                                    <span class="badge bg-danger">required</span>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Body is not null)
+        {
+            <div class="row border-top g-0 py-2">
+                <div class="col-1 border-end">
+                    <h5 class="mb-2">Body</h5>
+                </div>
+                <div class="col-11  ps-2">
+                    <EHModelView Type="@Body" />
+                </div>
+            </div>
+        }
+        <div class="row border-top g-0 py-2">
+            <div class="col-1 border-end">
+                <h5 class="mb-2">Response</h5>
+            </div>
+            <div class="col-11 ps-2">
+                <div class="row row-cols-3 g-0">
+                    <div class="col">
+                        <h5 class="model-header text-success mb-2">Success</h5>
+                        <EHModelView Type="@IsSuccess" />
+                    </div>
+                    <div class="col">
+                        <h5 class="model-header text-warning mb-2">Error</h5>
+                        <EHModelView Type="@IsWarning" />
+                    </div>
+                    <div class="col">
+                        <h5 class="model-header text-danger mb-2">Server Error</h5>
+                        <EHModelView Type="@IsError" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public RequestMethod Method { get; set; }
+
+    string methodBG = string.Empty;
+    string collapseId = Guid.NewGuid().ToString();
+    protected override void OnInitialized()
+    {
+        if (Method == RequestMethod.GET)
+            methodBG = "request-get";
+        if (Method == RequestMethod.POST)
+            methodBG = "request-post";
+        if (Method == RequestMethod.DELETE)
+            methodBG = "request-delete";
+        if (Method == RequestMethod.PUT)
+            methodBG = "request-put";
+    }
+}

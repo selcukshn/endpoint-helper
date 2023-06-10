@@ -1,0 +1,10 @@
+<h2 class="mb-3">@Header</h2>
+<CascadingValue Value="@BaseAddress">
+    @EHBody
+</CascadingValue>
+
+@code {
+    [Parameter] public string Header { get; set; }
+    [Parameter] public RenderFragment EHBody { get; set; }
+    [Parameter] public string BaseAddress { get; set; }
+}

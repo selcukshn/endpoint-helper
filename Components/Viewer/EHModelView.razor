@@ -1,0 +1,39 @@
+@if (Type is not null)
+{
+    if (Model.IsModel)
+    {
+        <h6 class="response-model-name d-inline-block" data-bs-toggle="collapse" data-bs-target="#@CollapseName">
+            @Model.Name
+            <i class="bi bi-caret-down-fill"></i>
+        </h6>
+        <div class="response-model collapse font-monospace" id="@CollapseName">
+            @foreach (var item in Model.Properties)
+            {
+                <EHPropertyView Property="@item" IsSameObject="@IsSameObject(item.PropertyType)" />
+            }
+        </div>
+    }
+    else
+    {
+        <h6 class="response-model-name d-inline-block">@Model.Name</h6>
+    }
+}
+else
+{
+    <i>none</i>
+}
+
+@code {
+    [Parameter] public EHResponse? Model { get; set; }
+    [Parameter] public Type? Type { get; set; }
+    private string CollapseName;
+    protected override void OnInitialized()
+    {
+        Model = new EHResponse(Type);
+        CollapseName = Guid.NewGuid().ToString();
+    }
+    private bool IsSameObject(Type typeOfObject)
+    {
+        return typeOfObject == Model.Type || typeOfObject.FullName.Contains(Model.Type.ToString());
+    }
+}

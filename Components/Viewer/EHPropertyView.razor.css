@@ -1,0 +1,17 @@
+.response-model-property {
+    display: flex;
+    gap: 0.5rem;
+    align-items: end;
+}
+
+.response-model-property-name {
+    font-weight: 700;
+}
+
+.response-model-property-model-collapse {
+    cursor: pointer;
+}
+
+.response-model-property-model-collapse i {
+    font-size: 0.6rem;
+}
