@@ -3,15 +3,13 @@
 <PageTitle>Index</PageTitle>
 <EHView BaseAddress="https://localhost:1234" Header="Blog">
     <EHBody>
-        <EHGet Endpoint="/api/blog/{url:string}" RequestName="GetBlogWithUrl" IsSuccess="typeof(TestResponse)" />
-        <EHGet Endpoint="/api/blog/{url:string}" RequestName="GetBlogWithUrl" IsSuccess="typeof(TestResponse)"
-            Parameters="parameters" />
-        <EHPost Endpoint=" /api/blog/{url:string}" RequestName="GetBlogWithUrl" IsSuccess="typeof(List<TestResponse>)"
-            Body="typeof(List<TestResponse>)" />
-        <EHDelete Endpoint=" /api/blog/{url:string}" RequestName="GetBlogWithUrl" IsSuccess="typeof(List<TestResponse>)"
-            Body="typeof(List<TestResponse>)" />
-        <EHPut Endpoint=" /api/blog/{url:string}" RequestName="GetBlogWithUrl" IsSuccess="typeof(List<TestResponse>)"
-            Body="typeof(List<TestResponse>)" />
+        <EHGet Endpoint="/api/blog/{url:string}" Parameters="parameters" RequestName="GetBlogWithUrl"
+            IsSuccess="typeof(List<Blog>)" />
+        <EHPost Endpoint="/api/blog" RequestName="CreateBlog" Body="typeof(CreateBlog)" IsSuccess="typeof(bool)" />
+        <EHPut Endpoint="/api/blog/{id:guid}" RequestName="UpdateBlog" Body="typeof(UpdateBlog)"
+            IsSuccess="typeof(bool)" />
+        <EHDelete Endpoint="/api/blog/{id:guid}" RequestName="DeleteBlog" Body="typeof(DeleteBlog)"
+            IsSuccess="typeof(bool)" />
     </EHBody>
 </EHView>
 
